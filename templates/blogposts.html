@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+{%block header%}
+    <a href="/logout">Click Here To Logout</a>
+{%endblock%}
+{%block content%}
+
+<h1>Welcome To The Blog!</h1>
+<br><br>
+
+<h3>Add a Post!</h3>
+<br>
+<form method='POST' role='form' action="">
+    {{form.csrf_token}}
+    <p>
+        {{form.title.label}}
+        {{form.title(placeholder='Title')}}
+        <span>
+            {%if form.title.errors%}
+                {%for error in form.title.errors%}
+                    {{error}}
+                {%endfor%}
+            {%endif%}
+        </span>
+    </p>
+    <p>
+        {{form.description.label}}
+        {{form.description(placeholder='Post')}}
+        <span>
+            {%if form.description.errors%}
+                {%for error in form.description.errors%}
+                    {{error}}
+                {%endfor%}
+            {%endif%}
+        </span>
+    </p>
+    <button type='submit'>Post</button>
+</form>
+
+<h3>Posts:</h3>
+{%for post in posts%}
+    <strong>Title:</strong>
+    {{post.title}}
+    <br>
+    <strong>Posts:</strong>
+    {{post.description}}
+    <br>
+    <strong>Author:</strong>
+    {{post.author.username}}
+    <br><br>
+{%endfor%}
+
+{%endblock%}
